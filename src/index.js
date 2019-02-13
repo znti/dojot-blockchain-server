@@ -17,7 +17,7 @@ app.post("/", (req, res) => {
     headers: {
       "Content-Type": "application/json"
     },
-    body,
+    body: JSON.stringify(body),
     json: true
   };
 
@@ -30,6 +30,10 @@ app.post("/", (req, res) => {
       res.json(body);
     }
   });
+});
+
+app.get("/ping", (req, res) => {
+  res.send("pong");
 });
 
 app.listen(3000, () => {
