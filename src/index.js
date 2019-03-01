@@ -12,23 +12,33 @@ app.post("/", (req, res) => {
   const { body } = req;
   const options = {
     method: "POST",
+		timeout: 15000,
     url:
       "https://blockchain-dojot.cpqd.com.br/supply-chain/rest/v1/verify-utility-token-data",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(body),
+//    body: JSON.stringify(body),
+   	body,
     json: true
   };
 
+	console.log('Posting:', options)
+
   request(options, function(error, response, body) {
+		console.log('body', body);
     if (error) throw new Error(error);
     console.log(response.statusCode);
-    if (response.statusCode === 500) {
-      res.status(500).json(body);
-    } else {
-      res.json(body);
-    }
+		
+		res.status(response.statusCode).json(body);
+//		return;
+//    if (response.statusCode === 500) {
+//			console.log('sending 500');
+//      res.status(500).json(body);
+//    } else {
+//			console.log('sending something else');
+//      res.json(body);
+//    }
   });
 });
 
